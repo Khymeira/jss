@@ -5,9 +5,10 @@
 # Check the network connection before running MS Update. See I180613-0229
 # We gather info on the active network link then have conditions we will perform updates over.
 #
-# Date: Mon 25 Jun 2018 11:36:07 BST
+# Date: Thu 2020 07:58:01 EST
 # Version: 0.1.1
 # Creator: dsavage
+# Updated by: khymeira
 #
 #######################################
 
@@ -29,7 +30,7 @@ if [[ "$Adapter_Name" =~ "Ethernet" ]]; then
 	fi
 elif [[ "$Adapter_Name" =~ "Wi-Fi" ]]; then
     Max_Link_Speed=$(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | awk '/maxRate/{print $NF}')
-    #Link_Speed=$(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | awk '/lastTxRate/{print $NF}')
+    Link_Speed=$(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | awk '/lastTxRate/{print $NF}')
 	Link_Auth=$(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | awk '/link auth/{print $NF}')
 	if [ "$Link_Auth" == "none" ] || [ $Max_Link_Speed -le 250 ]; then
 		Do_MS_Up="No"
